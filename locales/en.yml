@@ -1,10 +1,30 @@
 button:
+  add: Add
   about: About
+  signin: Sign in
+  signup: Sign up
   back: Back
   go: GO
   home: Home
   toggle_dark: Toggle dark mode
   toggle_langs: Change languages
+headings:
+  projects: Projects
+  addNewProject: Add a new project
+  nameOfProject: Name of the project
+  signIn: Sign in to your account
+  signUp: Sign up for a new account
+labels:
+  username: Username
+  password: Password
+  email: Email address
+  rememberMe: Remember me
+  forgotPassword: Forgot your password?
+paragraphs:
+  dontHaveAccount: Don't have an account?
+  haveAccount: Already have an account?
+  signup: Sign up
+  signin: Sign in
 intro:
   desc: Opinionated Vite Starter Template
   dynamic-route: Demo of dynamic route

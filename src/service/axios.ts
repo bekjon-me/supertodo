@@ -1,9 +1,9 @@
-import { REFRESH_TOKEN_URL } from '@/utils/urls'
+import { REFRESH_TOKEN_URL } from './urls'
 import axios from "axios"
 
 export const source = axios.CancelToken.source()
 
-const baseURL = 'https://guarded-badlands-15840.herokuapp.com/'
+const baseURL = 'http://47.254.127.151/'
 
 export const nonTokenInstance = axios.create({
   baseURL: baseURL,

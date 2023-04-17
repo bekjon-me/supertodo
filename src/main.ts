@@ -8,6 +8,7 @@ import generatedRoutes from "~pages";
 import "@unocss/reset/tailwind.css";
 import "./styles/main.css";
 import "uno.css";
+import 'vue3-toastify/dist/index.css'
 
 const routes = setupLayouts(generatedRoutes);
 
