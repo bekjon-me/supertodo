@@ -15,5 +15,6 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     ThemeSwitcher: typeof import('./components/ThemeSwitcher.vue')['default']
+    TodoCard: typeof import('./components/TodoCard.vue')['default']
   }
 }

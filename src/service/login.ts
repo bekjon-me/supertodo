@@ -25,10 +25,11 @@ export const handleLogin = async (values: any) => {
                 pending: "Logging in...",
                 success: "You have successfully logged in",
                 error: "Something went wrong",
-            },  
+            },
         );
         router.push("/");
-    } catch (error: any) {
+    }
+    catch (error: any) {
         console.log(error);
         if (error.response?.data.email)
             toast.error(error.response.data.email[0]);

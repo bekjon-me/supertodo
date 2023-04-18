@@ -1,5 +1,6 @@
 <script setup lang="ts">
-    import { addProject } from "~/service/add-project";
+    import { Project } from "~/models/project";
+import { addProject } from "~/service/add-project";
     import { getProjects } from "~/service/get-projects";
     const { t } = useI18n();
     const { showModal, toggleModal } = useModal();
@@ -7,16 +8,15 @@
         projectName: "",
     });
 
-    const projects = ref<any>([]);
+    const projects = ref<Project[]>([]);
 
     const handleAddProject = () => {
         addProject(modal.value.projectName, projects, toggleModal);
-        console.log("add project");
     };
 
     onMounted(async () => {
         getProjects(projects);
-    })
+    });
 </script>
 
 <template>
@@ -59,7 +59,7 @@
     </Modal>
 
     <div class="flex flex-wrap gap-4 justify-around mt-2">
-        <div v-for="project in projects" v-if="projects.length > 0">
+        <div v-if="projects?.length > 0" v-for="project in projects" :key="project.upid">
             <ProjectCard :project="project" />
         </div>
         <div v-else>

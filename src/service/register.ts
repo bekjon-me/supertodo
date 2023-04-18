@@ -21,7 +21,7 @@ export const handleRegister = async (values: Payload) => {
         };
         localStorage.setItem("tokens", JSON.stringify(tokens));
         createUser(res.data.user);
-    }
+    };
 
     try {
         toast.promise(
@@ -32,7 +32,8 @@ export const handleRegister = async (values: Payload) => {
                 error: "Something went wrong",
             },
         );
-    } catch (error: any) {
+    }
+    catch (error: any) {
         console.log(error);
         if (error.response?.data.username)
             toast.error(error.response.data.username[0]);

@@ -2,12 +2,12 @@ import { toast } from "vue3-toastify";
 import type { Ref } from "vue";
 import { withTokenInstance } from "./axios";
 import { PROJECTS_URL } from "./urls";
-import { Project } from "~/models/project";
+import { Todo } from "~/models/todo";
 
-export const getProjects = async (projects: Ref<Project[]>) => {
+export const getTodos = async (todos: Ref<Todo[]>, id: string | string[]) => {
     try {
         const response = await withTokenInstance.get(PROJECTS_URL);
-        projects.value = response.data;
+        todos.value = response.data;
     }
     catch (error: any) {
         console.log(error);
