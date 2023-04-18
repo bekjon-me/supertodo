@@ -1,15 +1,14 @@
 <script setup lang="ts">
+    const props = defineProps({
+        toggleModal: {
+            type: Function,
+            required: true,
+        },
+    });
 
-const props = defineProps({
-  toggleModal: {
-    type: Function,
-    required: true,
-  }
-})
-
-const handleToggleModal = () => {
-  props.toggleModal()
-}
+    const handleToggleModal = () => {
+        props.toggleModal();
+    };
 </script>
 
 <template>

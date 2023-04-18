@@ -8,13 +8,11 @@
         username: "",
         password: "",
     });
-    
 
     const showPassword = ref(false);
     const handleSubmit = (e: Event) => {
         e.preventDefault();
         handleLogin(payload.value);
-        console.log("submit");
     };
 </script>
 
@@ -85,7 +83,7 @@
 
                     <div class="text-sm">
                         <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
-                          {{ t('labels.forgotPassword') }}
+                            {{ t('labels.forgotPassword') }}
                         </a>
                     </div>
                 </div>
@@ -106,11 +104,11 @@
                 </div>
                 <div class="flex items-center justify-center">
                     <p class="text-sm text-gray-600">
-                        {{ t('paragraphs.dontHaveAccount')  }}
+                        {{ t('paragraphs.dontHaveAccount') }}
                     </p>
                     <RouterLink :to="{ name: 'register' }">
                         <p class="ml-2 font-medium text-indigo-600 hover:text-indigo-500">
-                            {{ t('paragraphs.signup')  }}
+                            {{ t('paragraphs.signup') }}
                         </p>
                     </RouterLink>
                 </div>

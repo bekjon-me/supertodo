@@ -11,6 +11,7 @@ declare module '@vue/runtime-core' {
     Button: typeof import('./components/Button.vue')['default']
     Header: typeof import('./components/Header.vue')['default']
     Modal: typeof import('./components/Modal.vue')['default']
+    ProjectCard: typeof import('./components/ProjectCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     ThemeSwitcher: typeof import('./components/ThemeSwitcher.vue')['default']

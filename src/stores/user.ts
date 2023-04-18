@@ -1,25 +1,23 @@
-import {  defineStore } from "pinia";
-import { User } from "~/models/user";
+import { defineStore } from "pinia";
+import type { User } from "~/models/user";
 
 export const useUserStore = defineStore("user", () => {
-  const router = useRouter()
-  const user = ref<User | null>(null)
+    const router = useRouter();
+    const user = ref<User | null>(null);
 
-  const createUser = (createdUser: User) => {
-    user.value = createdUser
-  }
+    const createUser = (createdUser: User) => {
+        user.value = createdUser;
+    };
 
-  const logout = () => {
-    user.value = null
-    localStorage.removeItem('tokens')
-    router.push('/login')
-  }
+    const logout = () => {
+        user.value = null;
+        localStorage.removeItem("tokens");
+        router.push("/login");
+    };
 
-  return {
-    user,
-    createUser,
-    logout
-  }
+    return {
+        user,
+        createUser,
+        logout,
+    };
 });
-
-

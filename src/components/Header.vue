@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import {ArrowRightOnRectangleIcon} from "@heroicons/vue/20/solid";
+    import { ArrowRightOnRectangleIcon } from "@heroicons/vue/20/solid";
     const showDropdown = ref(false);
     const dropdown = ref();
 
