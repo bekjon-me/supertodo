@@ -2,11 +2,17 @@
     import { Project } from "~/models/project";
 import { addProject } from "~/service/add-project";
     import { getProjects } from "~/service/get-projects";
+
+    const {showLoader, toggleLoader} = useLoader();
     const { t } = useI18n();
     const { showModal, toggleModal } = useModal();
     const modal = ref({
         projectName: "",
     });
+
+    const setProjectName = (name: string) => {
+        modal.value.projectName = name;
+    };
 
     const projects = ref<Project[]>([]);
 
@@ -15,8 +21,21 @@ import { addProject } from "~/service/add-project";
     };
 
     onMounted(async () => {
-        getProjects(projects);
+        getProjects(projects, toggleLoader);
     });
+    
+    const removeDeleted = (id: number) => {
+        projects.value = projects.value.filter(project => project.upid !== id)
+    }
+
+    const editProject = (id: number, name: string) => {
+        projects.value = projects.value.map(project => {
+            if (project.upid === id) {
+                project.name = name
+            }
+            return project
+        })
+    }
 </script>
 
 <template>
@@ -27,6 +46,18 @@ import { addProject } from "~/service/add-project";
     <h1 class="mt-2 text-[30px] border-b-2">
         {{ t('headings.projects') }}
     </h1>
+    <div v-if="projects?.length > 0" class="flex flex-wrap gap-4 justify-around mt-2">  
+        <div v-for="project in projects" :key="project.upid">
+            <ProjectCard :setProjectName="setProjectName" :project="project" :removeDeleted="removeDeleted" :editProject="editProject" />
+        </div>
+    </div>
+    <div class="relative" v-else>
+        <Loader v-if="showLoader"/>
+        <h1 v-else class="text-[#333] text-[20px] dark:text-gray-200">
+            No projects yet
+        </h1>
+    </div>
+
     <Modal v-if="showModal" :toggle-modal="toggleModal">
         <template #form>
             <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
@@ -57,17 +88,6 @@ import { addProject } from "~/service/add-project";
             </form>
         </template>
     </Modal>
-
-    <div class="flex flex-wrap gap-4 justify-around mt-2">
-        <div v-if="projects?.length > 0" v-for="project in projects" :key="project.upid">
-            <ProjectCard :project="project" />
-        </div>
-        <div v-else>
-            <h1 class="text-[#333] text-[20px] dark:text-gray-200">
-                No projects yet
-            </h1>
-        </div>
-    </div>
 </template>
 
 <route lang="yaml">

@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { Importance, Status, Todo } from '~/models/todo';
 import { getTodos } from '~/service/get-todos';
+import { addTodo } from '~/service/add-todo';
+import VueDatePicker from '@vuepic/vue-datepicker';
 
-    const {params} = useRoute();
-    const {id} = params
+
+const {showLoader, toggleLoader} = useLoader();
+
+    const props = defineProps<{id: string}>()    
     const {showModal, toggleModal} = useModal();
-    
 
     const newTodo = ref({
         title: '',
@@ -15,19 +18,20 @@ import { getTodos } from '~/service/get-todos';
         importance: '',
         current_status: ''
     })
+    const file = ref<File | null>(null)
 
     const todos = ref<Todo[]>([])
 
     onMounted(async () => {
-        getTodos(todos, id)
+        getTodos(todos, props.id, toggleLoader)
     })
 
-    const handleAddTask = () => {
-        console.log(newTodo.value)
+    const handleAddTodo = () => {
+        addTodo(newTodo, props.id, file, todos, toggleModal)
     }
 
     const handleFileUpload = (e: any) => {
-        console.log(e.target.files[0])
+        file.value = e.target.files[0]
     }
 
     const customPosition = () => ({ top: '100%', left: 0 })
@@ -36,10 +40,10 @@ import { getTodos } from '~/service/get-todos';
 <template>
     <Header />
     <Button @click="toggleModal"> Add task </Button>
-    <!-- <Modal :toggle-modal="toggleModal" v-if="showModal">
+    <Modal :toggle-modal="toggleModal" v-if="showModal">
       <template #form>
         <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Add a new task</h3>
-        <form class="space-y-3" @submit.prevent="handleAddTask">
+        <form class="space-y-3" @submit.prevent="handleAddTodo">
           <label
             for="projectName"
             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -70,7 +74,7 @@ import { getTodos } from '~/service/get-todos';
           />
           <div class="flex flex-col gap-x-4 justify-around mt-2">
             <h2 class="block mb-2 text-sm font-medium text-red-700">
-              Start date must be before the end date
+                The start date must be before the end date
             </h2>
             <div>
               <label
@@ -140,7 +144,7 @@ import { getTodos } from '~/service/get-todos';
           <label
             class="block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-white"
             for="file_input"
-            >You can upload a file</label
+            >You can upload a file if you want</label
           >
           <input
             class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
@@ -160,15 +164,18 @@ import { getTodos } from '~/service/get-todos';
           </button>
         </form>
       </template>
-    </Modal> -->
+    </Modal>
   
     <div class="mt-2 text-[30px] text-[#333] border-b-2 dark:text-white">Tasks</div>
     <div class="flex flex-wrap gap-4 justify-around mt-2">
-      <div v-if="todos.length > 0" v-for="todo in todos">
-        <TodoCard :todo="todo" />
-      </div>
-      <div v-else>
-        <h1 class="text-[#333] text-[20px] dark:text-gray-200">No todos yet</h1>
-      </div>
+        <div v-if="todos.length > 0">
+            <div v-for="todo in todos">
+              <TodoCard :todo="todo" />
+            </div>
+        </div>
+        <div class="relative w-full" v-else>
+            <Loader v-if="showLoader" />
+            <h1 v-else class="text-[#333] text-[20px] dark:text-gray-200">No todos yet</h1>
+        </div>
     </div>
   </template>

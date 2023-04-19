@@ -5,7 +5,7 @@ import { Todo } from '~/models/todo';
 const props = defineProps<{
   todo: Todo
 }>()
-
+const { id } = useRouter().currentRoute.value.params
 const image = ref()
 
 onMounted(async () => {
@@ -23,9 +23,9 @@ const color = computed(() => {
 })
 
 
+
+
 </script>
-
-
 
 <template>
     <div class="max-w-sm border border-gray-200 shadow dark:border-gray-700">
@@ -38,13 +38,13 @@ const color = computed(() => {
         </h5>
         <p class="mb-3 font-normal text-gray-700 dark:text-gray-200">
           {{
-            todo.description.length > 300
+            todo.description?.length > 300
               ? todo.description.substring(0, 300) + '...'
               : todo.description
           }}
         </p>
         <RouterLink
-          :to="{ name: 'Todo', params: { todoId: todo.ptid } }"
+          :to="`/projects/${id}/todos/${todo.ptid}`"
           class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           Let's check it out

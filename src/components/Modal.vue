@@ -16,7 +16,7 @@
         id="add-modal"
         tabindex="-1"
         aria-hidden="true"
-        class="fixed top-0 left-0 right-0 bottom-4 z-50 w-full p-4 overflow-hidden md:inset-0 h-90vh mb backdrop-blur-sm flex justify-center"
+        class="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-hidden md:inset-0 h-full mb backdrop-blur-sm flex justify-center"
         @click.self="handleToggleModal"
     >
         <div class="relative w-full h-full max-w-md md:h-auto mt-4 overflow-y-auto scrollbar-hide">

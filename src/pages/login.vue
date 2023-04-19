@@ -21,7 +21,7 @@
         <div class="w-full max-w-md space-y-8">
             <div>
                 <img class="mx-auto h-28 w-auto" src="../assets/logo.jpg" alt="Your Company">
-                <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+                <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-200">
                     {{ t('headings.signIn') }}
                 </h2>
             </div>
@@ -37,7 +37,7 @@
                             type="text"
                             autocomplete="username"
                             required
-                            class="relative block w-full rounded-t-md border-0 p-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-none"
+                            class="relative block w-full rounded-t-md border-0 p-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:text-gray-200 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-none"
                             placeholder="Username"
                         >
                     </div>
@@ -50,7 +50,7 @@
                             :type="showPassword ? 'text' : 'password'"
                             autocomplete="current-password"
                             required
-                            class="relative block w-full rounded-b-md border-0 p-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-none"
+                            class="relative block w-full rounded-b-md border-0 p-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:text-gray-200 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-none"
                             placeholder="Password"
                         >
                         <div class="absolute z-10 inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
@@ -78,7 +78,7 @@
                             type="checkbox"
                             class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                         >
-                        <label for="remember-me" class="ml-2 block text-sm text-gray-900">{{ t('labels.rememberMe') }}</label>
+                        <label for="remember-me" class="ml-2 block text-sm text-gray-900 dark:text-gray-200">{{ t('labels.rememberMe') }}</label>
                     </div>
 
                     <div class="text-sm">
@@ -103,7 +103,7 @@
                     </button>
                 </div>
                 <div class="flex items-center justify-center">
-                    <p class="text-sm text-gray-600">
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
                         {{ t('paragraphs.dontHaveAccount') }}
                     </p>
                     <RouterLink :to="{ name: 'register' }">

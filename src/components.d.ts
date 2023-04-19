@@ -9,7 +9,9 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     ArrowRightOnRectangleIcon: typeof import('./components/ArrowRightOnRectangleIcon.vue')['default']
     Button: typeof import('./components/Button.vue')['default']
+    Confirmation: typeof import('./components/Confirmation.vue')['default']
     Header: typeof import('./components/Header.vue')['default']
+    Loader: typeof import('./components/Loader.vue')['default']
     Modal: typeof import('./components/Modal.vue')['default']
     ProjectCard: typeof import('./components/ProjectCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

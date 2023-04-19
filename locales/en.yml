@@ -11,6 +11,7 @@ button:
 headings:
   projects: Projects
   addNewProject: Add a new project
+  editProject: Edit project
   nameOfProject: Name of the project
   signIn: Sign in to your account
   signUp: Sign up for a new account

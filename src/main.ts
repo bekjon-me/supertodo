@@ -9,6 +9,8 @@ import "@unocss/reset/tailwind.css";
 import "./styles/main.css";
 import "uno.css";
 import "vue3-toastify/dist/index.css";
+import '@vuepic/vue-datepicker/dist/main.css'
+
 
 const routes = setupLayouts(generatedRoutes);
 

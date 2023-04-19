@@ -5,7 +5,7 @@ import { LOGIN_USER_URL } from "./urls";
 
 export const handleLogin = async (values: any) => {
     const { createUser } = useUserStore();
-    const router = useRouter();
+    // const router = useRouter();
 
     const loginFN = async () => {
         const res = await nonTokenInstance.post(LOGIN_USER_URL, values);
@@ -27,7 +27,7 @@ export const handleLogin = async (values: any) => {
                 error: "Something went wrong",
             },
         );
-        router.push("/");
+        // router.push("/");
     }
     catch (error: any) {
         console.log(error);

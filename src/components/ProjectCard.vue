@@ -3,11 +3,17 @@
     import moment from "moment";
     import type { Project } from "~/models/project";
     import thinkHappy from "~/assets/thinkHappy.jpg";
+    import { deleteProject } from "~/service/delete-project";
+    import { updateProject } from "~/service/update-project";
 
-    defineProps<{
+    const props = defineProps<{
         project: Project
+        removeDeleted: (id:number) => void
+        setProjectName: (name: string) => void
+        editProject: (id: number, name:string) => void
     }>();
-
+    const {showModal, toggleModal} = useModal();
+    
     interface Quote {
         content: string
         author?: string
@@ -18,6 +24,8 @@
         content: "",
         author: "",
     });
+    const changingName = ref('');
+    const {showConfirmation, toggleConfirmation} = useConfirmation()
 
     onMounted(async () => {
         try {
@@ -32,6 +40,21 @@
             loading.value = false;
         }
     });
+
+    const deleteFn = () => {
+        deleteProject(props.project.upid, toggleConfirmation, props.removeDeleted)
+    }
+
+    const openModal = () => {
+        props.setProjectName(props.project.name)
+        changingName.value = props.project.name
+        toggleModal()
+    }
+
+    const handleEdit = () => {
+        updateProject(props.project.upid, changingName.value, toggleModal, props.editProject)
+    }
+
 </script>
 
 <template>
@@ -87,20 +110,24 @@
         <div class="absolute bottom-5 right-5 flex gap-2">
             <button
                 class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                @click="toggleConfirmation"
             >
                 Delete
             </button>
 
             <button
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                @click="openModal"
             >
                 Edit
             </button>
         </div>
     </div>
-    <!-- <Modal v-if="showModal && !showMainModal">
+
+    <Confirmation v-if="showConfirmation" :delete-fn="deleteFn" :cancel-fn="toggleConfirmation" />
+    <Modal :toggle-modal="toggleModal" v-if="showModal">
       <template #form>
-        <form class="flex flex-col gap-4" @submit.prevent="handleSubmit">
+        <form class="flex flex-col gap-4" @submit.prevent="handleEdit">
           <div class="flex flex-col gap-2">
             <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-200">
               Name
@@ -108,8 +135,9 @@
             <input
               type="text"
               :id="project.created"
-              class="border border-gray-300 rounded-md p-2 dark:text-gray-800"
-              v-model="changingProject.name"
+              class="border border-gray-900 rounded-md p-2 dark:text-gray-200"
+              v-model.trim="changingName"
+              required
             />
           </div>
           <div class="flex justify-end">
@@ -119,5 +147,5 @@
           </div>
         </form>
       </template>
-    </Modal> -->
+    </Modal>
 </template>
