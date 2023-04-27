@@ -37,7 +37,6 @@ for (const route of generatedRoutes) {
 }
 
 let router: Router;
-
 export function setRouter(r: Router): void {
     router = r;
 }

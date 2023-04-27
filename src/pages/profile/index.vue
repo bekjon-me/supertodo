@@ -27,9 +27,6 @@
     };
 
     const handleChange = (e: any, key: string) => {
-        {
-            key: e.target.value;
-        }
         modalUser.value = {
             ...modalUser.value,
             [key]: e.target.value,
