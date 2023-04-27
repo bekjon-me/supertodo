@@ -21,20 +21,22 @@ export const addTodo = async (newTodo: Ref<Todo>, id: string, file: Ref<File | n
         const formData = new FormData();
         formData.append("attached_file", file.value as File);
 
-        try {
-            const res2 = await withTokenInstance.post(
-                `${PROJECTS_URL + id}/tasks/${res.data.ptid}/files/`,
-                formData,
-                {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
+        if(file.value) {
+            try {
+                const res2 = await withTokenInstance.post(
+                    `${PROJECTS_URL + id}/tasks/${res.data.ptid}/files/`,
+                    formData,
+                    {
+                        headers: {
+                            "Content-Type": "multipart/form-data",
+                        },
                     },
-                },
-            );
-            attached_file_id = res2.data.tfid;
-        }
-        catch (error) {
-            return error;
+                );
+                attached_file_id = res2.data.tfid;
+            }
+            catch (error) {
+                return error;
+            }
         }
 
         const task = {

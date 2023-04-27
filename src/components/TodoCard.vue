@@ -23,11 +23,11 @@
 </script>
 
 <template>
-    <div class="max-w-sm border border-gray-200 shadow dark:border-gray-700">
+    <div class="max-w-sm border border-gray-200 shadow dark:border-gray-700 h-full flex flex-col">
         <div class="w-96 h-96 relative flex justify-center items-center dark:bg-gray-800">
             <img class="absolute h-full object-cover" :src="image" alt="Todo Card image">
         </div>
-        <div class="p-5" :class="[color]">
+        <div class="p-5 flex-1 relative pb-8" :class="[color]">
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 {{ todo.title }}
             </h5>
@@ -40,7 +40,7 @@
             </p>
             <RouterLink
                 :to="`/projects/${id}/todos/${todo.ptid}`"
-                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                class="absolute bottom-2 left-2 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
                 Let's check it out
                 <svg

@@ -185,8 +185,8 @@
     <div class="mt-2 text-[30px] text-[#333] border-b-2 dark:text-white">
         Tasks
     </div>
-    <div class="flex flex-wrap gap-4 justify-around mt-2">
-        <div v-if="todos.length > 0">
+    <div class="mt-2">
+        <div v-if="todos.length > 0" class="flex flex-wrap gap-4 justify-around">
             <div v-for="todo in todos" :key="todo.ptid">
                 <TodoCard :todo="todo" />
             </div>
