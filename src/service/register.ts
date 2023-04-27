@@ -47,5 +47,8 @@ export const handleRegister = async (values: Payload) => {
                     else return "Something went wrong";
                 },
             },
+        },{
+            autoClose: 3000,
+            closeButton: true,
         });
 };

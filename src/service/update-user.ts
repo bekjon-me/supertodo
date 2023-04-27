@@ -22,6 +22,9 @@ export const updateUser = async (modalUser: User, user: Ref<User>, toggleModal: 
             },
 
         },
+    },{
+        autoClose: 1000,
+        closeButton: true,
     });
     toggleModal();
 };

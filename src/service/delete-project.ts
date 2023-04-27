@@ -19,6 +19,10 @@ export const deleteProject = async (id: number, toggleConfirmation: () => void, 
                 },
             },
         },
+        {
+            autoClose: 3000,
+            closeButton: true,
+        }
     );
     toggleConfirmation();
 };

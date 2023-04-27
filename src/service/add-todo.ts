@@ -78,6 +78,9 @@ export const addTodo = async (newTodo: Ref<Todo>, id: string, file: Ref<File | n
             },
 
         },
+    },{
+        autoClose: 3000,
+        closeButton: true,
     });
 
     toggleModal();

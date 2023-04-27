@@ -18,5 +18,8 @@ export const logout = async () => {
                 return "Something went wrong";
             },
         },
+    },{
+        autoClose: 3000,
+        closeButton: true,
     });
 };

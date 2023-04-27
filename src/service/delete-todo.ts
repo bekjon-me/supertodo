@@ -23,6 +23,10 @@ export const deleteTodo = async (id: string, todoId: string, toggleConfirmation:
                 },
             },
         },
+        {
+            autoClose: 3000,
+            closeButton: true,
+        }
 
     );
     toggleConfirmation();
