@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import { ArrowRightOnRectangleIcon } from "@heroicons/vue/20/solid";
-    import {logout} from "~/service/logout";
+    import { logout } from "~/service/logout";
 
     const showDropdown = ref(false);
     const dropdown = ref();

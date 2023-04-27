@@ -9,15 +9,24 @@ export const addProject = async (name: string, projects: Ref<any[]>, toggleModal
         return;
     }
 
-    try {
+    const addFN = async () => {
         const response = await withTokenInstance.post(PROJECTS_URL, { name });
         projects.value.push(response.data);
-        toggleModal();
-        toast.success("The project has been created");
     }
-    catch (error: any) {
-        console.log(error);
-        if (error.response?.data.name)
-            toast.error(error.response.data.name[0]);
-    }
+
+
+    toast.promise(addFN(), {
+        pending: "Creating project...",
+        success: "The Project has been created",
+        error: {
+            render: (err: any) => {
+                console.log(err);
+                if (err.response?.data.name)
+                    return err.response.data.name[0];
+
+                else return "Something went wrong";
+            }
+        },
+    });
+    toggleModal();
 };

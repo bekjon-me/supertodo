@@ -8,12 +8,12 @@
 
     const props = defineProps<{
         project: Project
-        removeDeleted: (id:number) => void
+        removeDeleted: (id: number) => void
         setProjectName: (name: string) => void
-        editProject: (id: number, name:string) => void
+        editProject: (id: number, name: string) => void
     }>();
-    const {showModal, toggleModal} = useModal();
-    
+    const { showModal, toggleModal } = useModal();
+
     interface Quote {
         content: string
         author?: string
@@ -24,8 +24,8 @@
         content: "",
         author: "",
     });
-    const changingName = ref('');
-    const {showConfirmation, toggleConfirmation} = useConfirmation()
+    const changingName = ref("");
+    const { showConfirmation, toggleConfirmation } = useConfirmation();
 
     onMounted(async () => {
         try {
@@ -42,19 +42,18 @@
     });
 
     const deleteFn = () => {
-        deleteProject(props.project.upid, toggleConfirmation, props.removeDeleted)
-    }
+        deleteProject(props.project.upid, toggleConfirmation, props.removeDeleted);
+    };
 
     const openModal = () => {
-        props.setProjectName(props.project.name)
-        changingName.value = props.project.name
-        toggleModal()
-    }
+        props.setProjectName(props.project.name);
+        changingName.value = props.project.name;
+        toggleModal();
+    };
 
     const handleEdit = () => {
-        updateProject(props.project.upid, changingName.value, toggleModal, props.editProject)
-    }
-
+        updateProject(props.project.upid, changingName.value, toggleModal, props.editProject);
+    };
 </script>
 
 <template>
@@ -125,27 +124,27 @@
     </div>
 
     <Confirmation v-if="showConfirmation" :delete-fn="deleteFn" :cancel-fn="toggleConfirmation" />
-    <Modal :toggle-modal="toggleModal" v-if="showModal">
-      <template #form>
-        <form class="flex flex-col gap-4" @submit.prevent="handleEdit">
-          <div class="flex flex-col gap-2">
-            <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-200">
-              Name
-            </label>
-            <input
-              type="text"
-              :id="project.created"
-              class="border border-gray-900 rounded-md p-2 dark:text-gray-200"
-              v-model.trim="changingName"
-              required
-            />
-          </div>
-          <div class="flex justify-end">
-            <button type="submit" class="bg-blue-500 text-white font-semibold px-4 py-2 rounded-md">
-              Save
-            </button>
-          </div>
-        </form>
-      </template>
+    <Modal v-if="showModal" :toggle-modal="toggleModal">
+        <template #form>
+            <form class="flex flex-col gap-4" @submit.prevent="handleEdit">
+                <div class="flex flex-col gap-2">
+                    <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-200">
+                        Name
+                    </label>
+                    <input
+                        :id="project.created"
+                        v-model.trim="changingName"
+                        type="text"
+                        class="border border-gray-900 rounded-md p-2 dark:text-gray-200"
+                        required
+                    >
+                </div>
+                <div class="flex justify-end">
+                    <button type="submit" class="bg-blue-500 text-white font-semibold px-4 py-2 rounded-md">
+                        Save
+                    </button>
+                </div>
+            </form>
+        </template>
     </Modal>
 </template>

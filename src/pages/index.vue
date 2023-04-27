@@ -1,9 +1,9 @@
 <script setup lang="ts">
-    import { Project } from "~/models/project";
-import { addProject } from "~/service/add-project";
+    import type { Project } from "~/models/project";
+    import { addProject } from "~/service/add-project";
     import { getProjects } from "~/service/get-projects";
 
-    const {showLoader, toggleLoader} = useLoader();
+    const { showLoader, toggleLoader } = useLoader();
     const { t } = useI18n();
     const { showModal, toggleModal } = useModal();
     const modal = ref({
@@ -23,19 +23,19 @@ import { addProject } from "~/service/add-project";
     onMounted(async () => {
         getProjects(projects, toggleLoader);
     });
-    
+
     const removeDeleted = (id: number) => {
-        projects.value = projects.value.filter(project => project.upid !== id)
-    }
+        projects.value = projects.value.filter(project => project.upid !== id);
+    };
 
     const editProject = (id: number, name: string) => {
-        projects.value = projects.value.map(project => {
-            if (project.upid === id) {
-                project.name = name
-            }
-            return project
-        })
-    }
+        projects.value = projects.value.map((project) => {
+            if (project.upid === id)
+                project.name = name;
+
+            return project;
+        });
+    };
 </script>
 
 <template>
@@ -46,13 +46,13 @@ import { addProject } from "~/service/add-project";
     <h1 class="mt-2 text-[30px] border-b-2">
         {{ t('headings.projects') }}
     </h1>
-    <div v-if="projects?.length > 0" class="flex flex-wrap gap-4 justify-around mt-2">  
+    <div v-if="projects?.length > 0" class="flex flex-wrap gap-4 justify-around mt-2">
         <div v-for="project in projects" :key="project.upid">
-            <ProjectCard :setProjectName="setProjectName" :project="project" :removeDeleted="removeDeleted" :editProject="editProject" />
+            <ProjectCard :set-project-name="setProjectName" :project="project" :remove-deleted="removeDeleted" :edit-project="editProject" />
         </div>
     </div>
-    <div class="relative" v-else>
-        <Loader v-if="showLoader"/>
+    <div v-else class="relative">
+        <Loader v-if="showLoader" />
         <h1 v-else class="text-[#333] text-[20px] dark:text-gray-200">
             No projects yet
         </h1>

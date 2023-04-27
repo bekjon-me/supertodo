@@ -2,6 +2,7 @@ import { toast } from "vue3-toastify";
 import { useUserStore } from "../stores/user";
 import { nonTokenInstance } from "./axios";
 import { AUTH_USER_URL } from "./urls";
+import { router } from "~/router";
 
 interface Payload {
     username: string
@@ -21,30 +22,31 @@ export const handleRegister = async (values: Payload) => {
         };
         localStorage.setItem("tokens", JSON.stringify(tokens));
         createUser(res.data.user);
+        router.push("/");
     };
 
-    try {
         toast.promise(
             registerFN(),
             {
                 pending: "Logging in...",
                 success: "You have successfully logged in",
-                error: "Something went wrong",
+                error: {
+                    render: (error: any) => {
+                        console.log(error);
+                        if (error.response?.data.username)
+                            return error.response.data.username[0];
+
+                        if (error.response?.data.email)
+                            return error.response.data.email[0];
+
+                        if (error.response?.data.password1)
+                            return error.response.data.password1[0];
+
+                        if (error.response?.data.non_field_errors)
+                            return error.response.data.non_field_errors[0];
+
+                        else return "Something went wrong";
+                },
             },
-        );
-    }
-    catch (error: any) {
-        console.log(error);
-        if (error.response?.data.username)
-            toast.error(error.response.data.username[0]);
-
-        if (error.response?.data.email)
-            toast.error(error.response.data.email[0]);
-
-        if (error.response?.data.password1)
-            toast.error(error.response.data.password1[0]);
-
-        if (error.response?.data.non_field_errors)
-            toast.error(error.response.data.non_field_errors[0]);
-    }
+});
 };

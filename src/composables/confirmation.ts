@@ -3,7 +3,7 @@ export const useConfirmation = () => {
 
     const toggleConfirmation = () => {
         console.log("toggle conf");
-        
+
         showConfirmation.value = !showConfirmation.value;
     };
 
