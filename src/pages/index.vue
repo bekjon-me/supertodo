@@ -28,10 +28,10 @@
         projects.value = projects.value.filter(project => project.upid !== id);
     };
 
-    const editProject = (id: number, name: string) => {
+    const editProject = (id: number, updatedProject: Project) => {
         projects.value = projects.value.map((project) => {
             if (project.upid === id)
-                project.name = name;
+                project = updatedProject;
 
             return project;
         });

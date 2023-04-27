@@ -39,6 +39,6 @@ export const handleLogin = async (values: any) => {
 
                         else return "Something went wrong";
                     }
-            }
+            },
         });
 };

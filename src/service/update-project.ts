@@ -1,11 +1,12 @@
 import { toast } from "vue3-toastify";
 import { withTokenInstance } from "./axios";
 import { PROJECTS_URL } from "./urls";
+import { Project } from "~/models/project";
 
-export const updateProject = async (id: number, name: string, toggleModal: () => void, editLocal: (id: number, name: string) => void) => {
+export const updateProject = async (id: number, name: string, toggleModal: () => void, editLocal: (id: number, project: Project) => void) => {
     const updateFN = async () => {
         const res = await withTokenInstance.patch(`${PROJECTS_URL + id}/`, { name });
-        editLocal(id, res.data.name);
+        editLocal(id, res.data);
     };
 
         toast.promise(updateFN(), {

@@ -10,7 +10,7 @@
         project: Project
         removeDeleted: (id: number) => void
         setProjectName: (name: string) => void
-        editProject: (id: number, name: string) => void
+        editProject: (id: number, project: Project) => void
     }>();
     const { showModal, toggleModal } = useModal();
 
