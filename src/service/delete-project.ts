@@ -8,17 +8,17 @@ export const deleteProject = async (id: number, toggleConfirmation: () => void, 
         removeDeleted(id);
     };
 
-        toast.promise(
-            deleteFN(),
-            {
-                pending: "Deleting...",
-                success: "The project has been deleted",
-                error: {
-                    render: (err: any) => {
-                        return err.response.data.detail;
-                    },
+    toast.promise(
+        deleteFN(),
+        {
+            pending: "Deleting...",
+            success: "The project has been deleted",
+            error: {
+                render: (err: any) => {
+                    return err.response.data.detail;
                 },
             },
-        );
-        toggleConfirmation();
+        },
+    );
+    toggleConfirmation();
 };

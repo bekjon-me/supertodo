@@ -14,11 +14,9 @@ export const logout = async () => {
         pending: "Logging out...",
         success: "User has been logged out",
         error: {
-            render: (error: any) => {
-                console.log(error);
+            render: () => {
                 return "Something went wrong";
-            }
+            },
         },
     });
-    
 };

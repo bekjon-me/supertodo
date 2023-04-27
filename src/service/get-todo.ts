@@ -2,6 +2,7 @@ import type { Ref } from "vue";
 import { withTokenInstance } from "./axios";
 import { PROJECTS_URL } from "./urls";
 import type { Todo } from "~/models/todo";
+import { router } from "~/router";
 
 export const getTodo = async (actualTodo: Ref<Todo>, id: string, todoId: string, toggleLoader: () => void) => {
     try {
@@ -10,9 +11,8 @@ export const getTodo = async (actualTodo: Ref<Todo>, id: string, todoId: string,
         actualTodo.value = response.data;
     }
     catch (error: any) {
-        console.log(error);
         if (error?.response?.status === 404)
-            console.log("404");
+            await router.push(id as string);
     }
     finally {
         toggleLoader();

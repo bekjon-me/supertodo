@@ -5,17 +5,17 @@
     const showDropdown = ref(false);
     const dropdown = ref();
 
-    const handleClickOutside = (event: Event) => {
-        if (dropdown.value && !dropdown.value.contains(event.target as HTMLElement))
-            toggleDropdown();
-    };
-
     const toggleDropdown = () => {
         showDropdown.value = !showDropdown.value;
         if (showDropdown.value)
             document.addEventListener("click", handleClickOutside);
         else
             document.removeEventListener("click", handleClickOutside);
+    };
+
+    const handleClickOutside = (event: Event) => {
+        if (dropdown.value && !dropdown.value.contains(event.target as HTMLElement))
+            toggleDropdown();
     };
 
     const handleLogout = () => {

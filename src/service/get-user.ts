@@ -10,11 +10,7 @@ export const getUser = async (user: Ref<User>, toggleLoader: () => void) => {
         user.value = response.data;
     }
     catch (error: any) {
-        if (error?.response?.status === 404)
-            console.log("404");
-        //   await router.push(id as string)
-
-        console.log(error);
+        return error;
     }
     finally {
         toggleLoader();

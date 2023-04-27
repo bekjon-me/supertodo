@@ -4,7 +4,7 @@ import generatedRoutes from "virtual:generated-pages";
 import { withTokenInstance } from "~/service/axios";
 
 for (const route of generatedRoutes) {
-    route.beforeEnter = async (to, from, next) => {       
+    route.beforeEnter = async (to, from, next) => {
         let isAuthenticated = false;
         if (localStorage.getItem("tokens")) {
             try {
@@ -14,7 +14,6 @@ for (const route of generatedRoutes) {
                 isAuthenticated = true;
             }
             catch (error) {
-                console.log(error);
                 isAuthenticated = false;
             }
         }
@@ -37,12 +36,12 @@ for (const route of generatedRoutes) {
     };
 }
 
-let router: Router
+let router: Router;
 
 export function setRouter(r: Router): void {
-  router = r
+    router = r;
 }
 
-export const routes: RouteRecordRaw[] = setupLayouts(generatedRoutes);   
+export const routes: RouteRecordRaw[] = setupLayouts(generatedRoutes);
 
-export { router }
+export { router };

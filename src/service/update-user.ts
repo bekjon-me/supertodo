@@ -10,18 +10,18 @@ export const updateUser = async (modalUser: User, user: Ref<User>, toggleModal: 
         user.value = res.data;
     };
 
-        toast.promise(updateFN(), {
-            pending: "Updating...",
-            success: "User has been updated",
-            error: {
-                render: (err: any) => {
-                    if(err.response?.data.details)
-                        return err.response.data.details[0];
+    toast.promise(updateFN(), {
+        pending: "Updating...",
+        success: "User has been updated",
+        error: {
+            render: (err: any) => {
+                if (err.response?.data.details)
+                    return err.response.data.details[0];
 
-                    else return "Something went wrong";
-                }
+                else return "Something went wrong";
+            },
 
-            }
-        });
-        toggleModal();
+        },
+    });
+    toggleModal();
 };

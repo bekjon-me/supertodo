@@ -25,28 +25,27 @@ export const handleRegister = async (values: Payload) => {
         router.push("/");
     };
 
-        toast.promise(
-            registerFN(),
-            {
-                pending: "Logging in...",
-                success: "You have successfully logged in",
-                error: {
-                    render: (error: any) => {
-                        console.log(error);
-                        if (error.response?.data.username)
-                            return error.response.data.username[0];
+    toast.promise(
+        registerFN(),
+        {
+            pending: "Logging in...",
+            success: "You have successfully logged in",
+            error: {
+                render: (error: any) => {
+                    if (error.response?.data.username)
+                        return error.response.data.username[0];
 
-                        if (error.response?.data.email)
-                            return error.response.data.email[0];
+                    if (error.response?.data.email)
+                        return error.response.data.email[0];
 
-                        if (error.response?.data.password1)
-                            return error.response.data.password1[0];
+                    if (error.response?.data.password1)
+                        return error.response.data.password1[0];
 
-                        if (error.response?.data.non_field_errors)
-                            return error.response.data.non_field_errors[0];
+                    if (error.response?.data.non_field_errors)
+                        return error.response.data.non_field_errors[0];
 
-                        else return "Something went wrong";
+                    else return "Something went wrong";
                 },
             },
-});
+        });
 };

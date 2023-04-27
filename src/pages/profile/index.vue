@@ -53,7 +53,7 @@
         <div class="sm:w-[70%] xs:w-max mt-4 flex flex-col gap-2">
             <div v-for="(value, key) in user" :key="key">
                 <div
-                    v-if="key != 'pk'"
+                    v-if="key !== 'pk'"
                     class="flex flex-wrap items-center justify-between p-2 rounded-md border border-gray-900 dark:border-gray-200"
                 >
                     <span class="sm:text-xl xs:text-xs font-poppins mr-1">{{ `${labels[key]} :` }}</span>
@@ -77,8 +77,8 @@
     <Modal v-if="showModal" :toggle-modal="toggleModal">
         <template #form>
             <form class="flex flex-col gap-4" @submit.prevent="handleSubmit">
-                <div v-for="(value, key) in labels">
-                    <div v-if="key != 'email'" class="flex flex-col gap-2">
+                <div v-for="(value, key) in labels" :key="key">
+                    <div v-if="key !== 'email'" class="flex flex-col gap-2">
                         <label :for="key">{{ value }}</label>
                         <input
                             :id="key"

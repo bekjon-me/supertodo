@@ -1,7 +1,7 @@
 import { toast } from "vue3-toastify";
 import { withTokenInstance } from "./axios";
 import { PROJECTS_URL } from "./urls";
-import { Project } from "~/models/project";
+import type { Project } from "~/models/project";
 
 export const updateProject = async (id: number, name: string, toggleModal: () => void, editLocal: (id: number, project: Project) => void) => {
     const updateFN = async () => {
@@ -9,18 +9,17 @@ export const updateProject = async (id: number, name: string, toggleModal: () =>
         editLocal(id, res.data);
     };
 
-        toast.promise(updateFN(), {
-            pending: "Updating...",
-            success: "The project has been updated",
-            error: {
-                render: (err: any) => {
-                    console.log(err);
-                    if (err.response?.data.name)
-                        return err.response.data.name[0];
+    toast.promise(updateFN(), {
+        pending: "Updating...",
+        success: "The project has been updated",
+        error: {
+            render: (err: any) => {
+                if (err.response?.data.name)
+                    return err.response.data.name[0];
 
-                    else return "Something went wrong";
-                }
+                else return "Something went wrong";
             },
-        });
-        toggleModal();
+        },
+    });
+    toggleModal();
 };

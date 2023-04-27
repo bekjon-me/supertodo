@@ -72,7 +72,7 @@
 
         <div class="flow-root mb-4">
             <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-                <div v-for="(value, key) in labels">
+                <div v-for="(value, key) in labels" :key="key">
                     <li v-if="(key !== 'title' && key !== 'description')" class="py-3 sm:py-4">
                         <div>
                             <div class="flex items-center space-x-4">
@@ -135,7 +135,7 @@
         <Modal v-if="showModal" :toggle-modal="toggleModal">
             <template #form>
                 <form class="flex flex-col gap-4" @submit.prevent="handleSubmitEdit">
-                    <div v-for="(value, key) in labels">
+                    <div v-for="(value, key) in labels" :key="key">
                         <div class="flex flex-col gap-2">
                             <label :for="key">{{ value }}</label>
                             <VueDatePicker

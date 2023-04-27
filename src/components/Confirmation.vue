@@ -6,12 +6,10 @@
     }>();
 
     const handleDelete = () => {
-        console.log("do");
         props.deleteFn();
     };
 
     const handleCancel = () => {
-        console.log("cancel");
         props.cancelFn();
     };
 </script>

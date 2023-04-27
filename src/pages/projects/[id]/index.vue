@@ -187,7 +187,7 @@
     </div>
     <div class="flex flex-wrap gap-4 justify-around mt-2">
         <div v-if="todos.length > 0">
-            <div v-for="todo in todos">
+            <div v-for="todo in todos" :key="todo.ptid">
                 <TodoCard :todo="todo" />
             </div>
         </div>

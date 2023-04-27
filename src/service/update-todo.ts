@@ -16,14 +16,14 @@ export const updateTodo = async (
         actualTodo.value = { ...actualTodo.value, ...res.data };
     };
 
-        toast.promise(updateFN(), {
-            pending: "Updating...",
-            success: "Todo has been updated",
-            error: {
-                render: (err: any) => {
-                    return err.response.data.detail;
-                },
+    toast.promise(updateFN(), {
+        pending: "Updating...",
+        success: "Todo has been updated",
+        error: {
+            render: (err: any) => {
+                return err.response.data.detail;
             },
-        });
-        toggleModal();
+        },
+    });
+    toggleModal();
 };

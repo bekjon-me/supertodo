@@ -34,7 +34,7 @@ export const addTodo = async (newTodo: Ref<Todo>, id: string, file: Ref<File | n
             attached_file_id = res2.data.tfid;
         }
         catch (error) {
-            console.log(error);
+            return error;
         }
 
         const task = {
@@ -60,26 +60,25 @@ export const addTodo = async (newTodo: Ref<Todo>, id: string, file: Ref<File | n
         };
     };
 
-        toast.promise(addFN(), {
-            pending: "Creating task...",
-            success: "Task has been created",
-            error: {
-                render: (err: any) => {
-                    console.log(err);
-                    if (err.response?.data.name)
-                        return err.response.data.name[0];
+    toast.promise(addFN(), {
+        pending: "Creating task...",
+        success: "Task has been created",
+        error: {
+            render: (err: any) => {
+                if (err.response?.data.name)
+                    return err.response.data.name[0];
 
-                    if (err.response?.data.beginning)
-                        return err.response.data.beginning[0];
+                if (err.response?.data.beginning)
+                    return err.response.data.beginning[0];
 
-                    if (err.response?.data.importance)
-                        return err.response.data.importance[0];
+                if (err.response?.data.importance)
+                    return err.response.data.importance[0];
 
-                    else return "Something went wrong";
-                }
-                
+                else return "Something went wrong";
             },
-        });
-        
-        toggleModal();
+
+        },
+    });
+
+    toggleModal();
 };

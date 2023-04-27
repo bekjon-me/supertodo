@@ -9,22 +9,21 @@ export const deleteTodo = async (id: string, todoId: string, toggleConfirmation:
         router.push(`/projects/${id}`);
     };
 
-        toast.promise(
-            deleteFn(),
-            {
-                pending: "Deleting...",
-                success: "The todo has been deleted",
-                error: {
-                    render: (err: any) => {
-                        console.log(err);
-                        if (err.response?.data.name)
-                            return err.response.data.name[0];
+    toast.promise(
+        deleteFn(),
+        {
+            pending: "Deleting...",
+            success: "The todo has been deleted",
+            error: {
+                render: (err: any) => {
+                    if (err.response?.data.name)
+                        return err.response.data.name[0];
 
-                        else return "Something went wrong";
-                    }
+                    else return "Something went wrong";
                 },
             },
-            
-        );
-        toggleConfirmation();    
+        },
+
+    );
+    toggleConfirmation();
 };

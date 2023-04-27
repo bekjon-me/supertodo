@@ -11,7 +11,6 @@ export const getProjects = async (projects: Ref<Project[]>, toggleLoader: () => 
         projects.value = response.data;
     }
     catch (error: any) {
-        console.log(error);
         if (error.response?.data.name)
             toast.error(error.response.data.name[0]);
     }

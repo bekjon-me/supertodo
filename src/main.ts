@@ -15,11 +15,12 @@ export const createApp = ViteSSG(
     { routes },
     (ctx) => {
     // install all modules under `modules/`
-    const {router, isClient} = ctx;
-    if (isClient) setRouter(router);
-        
-    Object.values(import.meta.glob<{ install: UserModule }>("./modules/*.ts", { eager: true }))
-        .forEach(i => i.install?.(ctx));
-    ctx.app.use(Previewer);
+        const { router, isClient } = ctx;
+        if (isClient)
+            setRouter(router);
+
+        Object.values(import.meta.glob<{ install: UserModule }>("./modules/*.ts", { eager: true }))
+            .forEach(i => i.install?.(ctx));
+        ctx.app.use(Previewer);
     },
 );
