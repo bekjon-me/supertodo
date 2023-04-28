@@ -3,7 +3,7 @@ import { REFRESH_TOKEN_URL } from "./urls";
 
 export const source = axios.CancelToken.source();
 
-const baseURL = "http://47.254.127.151/";
+const baseURL = "http://20.199.16.219/";
 
 export const nonTokenInstance = axios.create({
     baseURL,

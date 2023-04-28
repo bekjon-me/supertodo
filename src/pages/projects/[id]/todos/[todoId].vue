@@ -207,12 +207,11 @@
                 </form>
             </template>
         </Modal>
-        <!-- <Confirmation v-if="confirmationModal" @closeFn="closeConfirmation" @doFn="handleDelete" /> -->
     </div>
 
-    <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-4 mt-8 md:mt-12 md:mb-6">
+    <!-- <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-4 mt-8 md:mt-12 md:mb-6">
         Attached files
-    </h2>
+    </h2> -->
 
     <!-- <div
       v-if="files.length > 0"
