@@ -6,7 +6,7 @@
 </script>
 
 <template>
-    <button class="bg-[green] py-[12px] px-[24px] rounded w-[100%] text-white" @click="onClick">
+    <button class="bg-[green] py-[12px] px-[24px] rounded w-[100%] text-white text" @click="onClick">
         <slot />
     </button>
 </template>

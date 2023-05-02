@@ -123,7 +123,7 @@
         </div>
     </div>
 
-    <Confirmation v-if="showConfirmation" :delete-fn="deleteFn" :cancel-fn="toggleConfirmation" />
+    <Confirmation v-if="showConfirmation" @delete-fn="deleteFn" @cancel-fn="toggleConfirmation" />
     <Modal v-if="showModal" :toggle-modal="toggleModal">
         <template #form>
             <form class="flex flex-col gap-4" @submit.prevent="handleEdit">

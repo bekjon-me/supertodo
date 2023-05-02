@@ -21,7 +21,7 @@ export const addTodo = async (newTodo: Ref<Todo>, id: string, file: Ref<File | n
         const formData = new FormData();
         formData.append("attached_file", file.value as File);
 
-        if(file.value) {
+        if (file.value) {
             try {
                 const res2 = await withTokenInstance.post(
                     `${PROJECTS_URL + id}/tasks/${res.data.ptid}/files/`,
@@ -80,7 +80,7 @@ export const addTodo = async (newTodo: Ref<Todo>, id: string, file: Ref<File | n
             },
 
         },
-    },{
+    }, {
         autoClose: 3000,
         closeButton: true,
     });

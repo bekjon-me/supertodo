@@ -7,9 +7,11 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    AppToastify: typeof import('./components/AppToastify.vue')['default']
     ArrowRightOnRectangleIcon: typeof import('./components/ArrowRightOnRectangleIcon.vue')['default']
     Button: typeof import('./components/Button.vue')['default']
     Confirmation: typeof import('./components/Confirmation.vue')['default']
+    Dropdown: typeof import('./components/Dropdown.vue')['default']
     Header: typeof import('./components/Header.vue')['default']
     Loader: typeof import('./components/Loader.vue')['default']
     Modal: typeof import('./components/Modal.vue')['default']

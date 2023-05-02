@@ -39,7 +39,6 @@
 </script>
 
 <template>
-    <Header />
     <Button class="bg-[green] py-[12px] px-[24px] rounded w-[100%] text-white" @click="toggleModal">
         {{ t('button.add') }}
     </Button>

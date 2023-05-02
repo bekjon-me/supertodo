@@ -1,16 +1,15 @@
 <script setup lang="ts">
-    const props = defineProps<
-{
-    deleteFn: () => void
-    cancelFn: () => void
+    const emit = defineEmits<{
+        (event: "deleteFn"): void
+        (event: "cancelFn"): void
     }>();
 
     const handleDelete = () => {
-        props.deleteFn();
+        emit("deleteFn");
     };
 
     const handleCancel = () => {
-        props.cancelFn();
+        emit("cancelFn");
     };
 </script>
 

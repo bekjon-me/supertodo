@@ -1,13 +1,10 @@
 <script setup lang="ts">
-    const props = defineProps({
-        toggleModal: {
-            type: Function,
-            required: true,
-        },
-    });
+    const emit = defineEmits<{
+        (event: "toggleModal"): void
+    }>();
 
     const handleToggleModal = () => {
-        props.toggleModal();
+        emit("toggleModal");
     };
 </script>
 

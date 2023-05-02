@@ -24,7 +24,7 @@ export const updateTodo = async (
                 return err.response.data.detail;
             },
         },
-    },{
+    }, {
         autoClose: 3000,
         closeButton: true,
     });

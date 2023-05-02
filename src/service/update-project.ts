@@ -20,7 +20,7 @@ export const updateProject = async (id: number, name: string, toggleModal: () =>
                 else return "Something went wrong";
             },
         },
-    },{
+    }, {
         autoClose: 3000,
         closeButton: true,
     });

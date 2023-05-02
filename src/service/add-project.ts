@@ -25,7 +25,7 @@ export const addProject = async (name: string, projects: Ref<any[]>, toggleModal
                 else return "Something went wrong";
             },
         },
-    },{
+    }, {
         autoClose: 3000,
         closeButton: true,
     });

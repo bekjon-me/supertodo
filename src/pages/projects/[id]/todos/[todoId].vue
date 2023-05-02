@@ -58,7 +58,6 @@
 </script>
 
 <template>
-    <Header />
     <div v-if="showLoader" class="relative">
         <Loader />
     </div>
@@ -130,7 +129,7 @@
             </button>
         </div>
 
-        <Confirmation v-if="showConfirmation" :cancel-fn="toggleConfirmation" :delete-fn="deleteFn" />
+        <Confirmation v-if="showConfirmation" @cancel-fn="toggleConfirmation" @delete-fn="deleteFn" />
 
         <Modal v-if="showModal" :toggle-modal="toggleModal">
             <template #form>

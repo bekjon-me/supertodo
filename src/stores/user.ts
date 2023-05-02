@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import type { User } from "~/models/user";
+import { logout } from "~/service/logout";
 
 export const useUserStore = defineStore("user", () => {
     const router = useRouter();
@@ -9,7 +10,8 @@ export const useUserStore = defineStore("user", () => {
         user.value = createdUser;
     };
 
-    const logout = () => {
+    const logoutUser = () => {
+        logout();
         user.value = null;
         localStorage.removeItem("tokens");
         router.push("/login");
@@ -18,6 +20,6 @@ export const useUserStore = defineStore("user", () => {
     return {
         user,
         createUser,
-        logout,
+        logoutUser,
     };
 });

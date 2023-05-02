@@ -2,10 +2,10 @@ import { toast } from "vue3-toastify";
 import { useUserStore } from "../stores/user";
 import { nonTokenInstance } from "./axios";
 import { LOGIN_USER_URL } from "./urls";
-import { router } from "~/router";
 
 export const handleLogin = async (values: any) => {
     const { createUser } = useUserStore();
+    const router = useRouter();
 
     const loginFN = async () => {
         const res = await nonTokenInstance.post(LOGIN_USER_URL, values);
@@ -37,7 +37,7 @@ export const handleLogin = async (values: any) => {
                     else return "Something went wrong";
                 },
             },
-        },{
+        }, {
             autoClose: 3000,
             closeButton: true,
         });

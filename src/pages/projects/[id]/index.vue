@@ -31,15 +31,14 @@
         addTodo(newTodo, props.id, file, todos, toggleModal);
     };
 
-    const handleFileUpload = (e: any) => {
-        file.value = e.target.files[0];
-    };
+    // const handleFileUpload = (e: any) => {
+    //     file.value = e.target.files[0];
+    // };
 
     const customPosition = () => ({ top: "100%", left: 0 });
 </script>
 
 <template>
-    <Header />
     <Button @click="toggleModal">
         Add task
     </Button>
@@ -158,7 +157,7 @@
                     </option>
                 </select>
 
-                <label
+                <!-- <label
                     class="block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     for="file_input"
                 >You can upload a file if you want</label>
@@ -170,7 +169,7 @@
                     accept=".doc,.docx,.pdf,image/*,audio/*"
                     max-size="5000000"
                     @change="handleFileUpload"
-                >
+                > -->
 
                 <button
                     type="submit"

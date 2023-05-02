@@ -2,7 +2,6 @@ import { toast } from "vue3-toastify";
 import { useUserStore } from "../stores/user";
 import { nonTokenInstance } from "./axios";
 import { AUTH_USER_URL } from "./urls";
-import { router } from "~/router";
 
 interface Payload {
     username: string
@@ -22,7 +21,7 @@ export const handleRegister = async (values: Payload) => {
         };
         localStorage.setItem("tokens", JSON.stringify(tokens));
         createUser(res.data.user);
-        router.push("/");
+        // router.push("/");
     };
 
     toast.promise(
@@ -47,7 +46,7 @@ export const handleRegister = async (values: Payload) => {
                     else return "Something went wrong";
                 },
             },
-        },{
+        }, {
             autoClose: 3000,
             closeButton: true,
         });

@@ -1,9 +1,6 @@
 <script setup lang="ts">
 // https://github.com/vueuse/head
 // you can use this to manipulate the document head in any components,
-
-    import { ToastifyContainer } from "vue3-toastify";
-
     // they will be rendered correctly in the html results with vite-ssg
     useHead({
         title: "AdvancedTodo",
@@ -26,5 +23,4 @@
 
 <template>
     <RouterView />
-    <ToastifyContainer />
 </template>

@@ -1,12 +1,11 @@
 import { toast } from "vue3-toastify";
 import { withTokenInstance } from "./axios";
 import { PROJECTS_URL } from "./urls";
-import { router } from "~/router";
 
 export const deleteTodo = async (id: string, todoId: string, toggleConfirmation: () => void) => {
     const deleteFn = async () => {
         await withTokenInstance.delete(`${PROJECTS_URL + id}/` + `tasks/${todoId}/`);
-        router.push(`/projects/${id}`);
+        // router.push(`/projects/${id}`);
     };
 
     toast.promise(
@@ -26,8 +25,7 @@ export const deleteTodo = async (id: string, todoId: string, toggleConfirmation:
         {
             autoClose: 3000,
             closeButton: true,
-        }
-
+        },
     );
     toggleConfirmation();
 };
