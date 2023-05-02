@@ -5,6 +5,9 @@
     const { logoutUser } = useUserStore();
     const showDropdown = ref(false);
     const dropdown = ref();
+    const isUserLoggedIn = computed(() => {
+        return !!localStorage.getItem("tokens");
+    });
 
     function handleClickOutside(event: Event) {
         if (dropdown.value && !dropdown.value.contains(event.target as HTMLElement))
@@ -29,7 +32,7 @@
 </script>
 
 <template>
-    <div ref="dropdown" class="relative">
+    <div v-if="isUserLoggedIn" ref="dropdown" class="relative">
         <img
             src="../assets/user.jpg"
             alt="User"
@@ -57,7 +60,7 @@
                     class="bg-red-600 hover:bg-red-500 flex items-center text-white cursor-pointer"
                     @click="handleLogout"
                 >
-                    <a href="#" class="block px-4 py-2 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</a>
+                    <a href="#" class="block px-4 py-2 dark:hover:text-white">Sign out</a>
                     <ArrowRightOnRectangleIcon class="w-5 h-5" />
                 </li>
             </ul>

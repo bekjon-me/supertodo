@@ -89,9 +89,9 @@
                 </div>
 
                 <div>
-                    <button
+                    <Button
                         type="submit"
-                        class="group relative flex w-full justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        color="blue"
                     >
                         <span class="absolute inset-y-0 left-0 flex items-center pl-3">
                             <LockClosedIcon
@@ -100,7 +100,7 @@
                             />
                         </span>
                         {{ t('button.signin') }}
-                    </button>
+                    </Button>
                 </div>
                 <div class="flex items-center justify-center">
                     <p class="text-sm text-gray-600 dark:text-gray-400">

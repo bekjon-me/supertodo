@@ -39,10 +39,10 @@
 </script>
 
 <template>
-    <Button @click="toggleModal">
+    <Button color="green" @click="toggleModal">
         Add task
     </Button>
-    <Modal v-if="showModal" :toggle-modal="toggleModal">
+    <Modal v-if="showModal" @toggle-modal="toggleModal">
         <template #form>
             <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
                 Add a new task
@@ -156,27 +156,12 @@
                         Done
                     </option>
                 </select>
-
-                <!-- <label
-                    class="block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    for="file_input"
-                >You can upload a file if you want</label>
-                <input
-                    id="file_input"
-                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                    aria-describedby="file_input_help"
-                    type="file"
-                    accept=".doc,.docx,.pdf,image/*,audio/*"
-                    max-size="5000000"
-                    @change="handleFileUpload"
-                > -->
-
-                <button
+                <Button
                     type="submit"
-                    class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    color="green"
                 >
                     Add
-                </button>
+                </Button>
             </form>
         </template>
     </Modal>

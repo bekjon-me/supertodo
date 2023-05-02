@@ -107,24 +107,24 @@
             </RouterLink>
         </div>
         <div class="absolute bottom-5 right-5 flex gap-2">
-            <button
-                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+            <Button
+                color="red"
                 @click="toggleConfirmation"
             >
                 Delete
-            </button>
+            </Button>
 
-            <button
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            <Button
+                color="blue"
                 @click="openModal"
             >
                 Edit
-            </button>
+            </Button>
         </div>
     </div>
 
     <Confirmation v-if="showConfirmation" @delete-fn="deleteFn" @cancel-fn="toggleConfirmation" />
-    <Modal v-if="showModal" :toggle-modal="toggleModal">
+    <Modal v-if="showModal" @toggle-modal="toggleModal">
         <template #form>
             <form class="flex flex-col gap-4" @submit.prevent="handleEdit">
                 <div class="flex flex-col gap-2">
@@ -140,9 +140,9 @@
                     >
                 </div>
                 <div class="flex justify-end">
-                    <button type="submit" class="bg-blue-500 text-white font-semibold px-4 py-2 rounded-md">
+                    <Button type="submit" color="blue">
                         Save
-                    </button>
+                    </Button>
                 </div>
             </form>
         </template>

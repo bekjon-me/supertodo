@@ -22,18 +22,18 @@
             Are you sure?
         </h2>
         <div class="flex justify-center items-center gap-4">
-            <button
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded h-10 w-20"
+            <Button
+                color="red"
                 @click="handleDelete"
             >
                 Yes
-            </button>
-            <button
-                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded h-10 w-20"
+            </Button>
+            <Button
+                color="blue"
                 @click="handleCancel"
             >
                 No
-            </button>
+            </Button>
         </div>
     </div>
 </template>

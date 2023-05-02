@@ -62,16 +62,16 @@
                 </div>
             </div>
 
-            <button
-                class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-4"
+            <Button
+                color="blue"
                 @click="toggleModal"
             >
                 Edit
-            </button>
+            </Button>
         </div>
     </div>
 
-    <Modal v-if="showModal" :toggle-modal="toggleModal">
+    <Modal v-if="showModal" @toggle-modal="toggleModal">
         <template #form>
             <form class="flex flex-col gap-4" @submit.prevent="handleSubmit">
                 <div v-for="(value, key) in labels" :key="key">
@@ -88,9 +88,9 @@
                 </div>
 
                 <div class="flex justify-end">
-                    <button type="submit" class="bg-blue-500 text-white font-semibold px-4 py-2 rounded-md">
+                    <Button type="submit" color="blue">
                         Save
-                    </button>
+                    </Button>
                 </div>
             </form>
         </template>

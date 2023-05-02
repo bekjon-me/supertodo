@@ -115,23 +115,23 @@
             </span>
         </div>
         <div class="absolute bottom-2 left-6 flex gap-4">
-            <button
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            <Button
+                color="blue"
                 @click="handleEdit"
             >
                 Edit
-            </button>
-            <button
-                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+            </Button>
+            <Button
+                color="red"
                 @click="toggleConfirmation"
             >
                 Delete
-            </button>
+            </Button>
         </div>
 
         <Confirmation v-if="showConfirmation" @cancel-fn="toggleConfirmation" @delete-fn="deleteFn" />
 
-        <Modal v-if="showModal" :toggle-modal="toggleModal">
+        <Modal v-if="showModal" @toggle-modal="toggleModal">
             <template #form>
                 <form class="flex flex-col gap-4" @submit.prevent="handleSubmitEdit">
                     <div v-for="(value, key) in labels" :key="key">
@@ -199,9 +199,9 @@
                     </div>
 
                     <div class="flex justify-end">
-                        <button type="submit" class="bg-blue-500 text-white font-semibold px-4 py-2 rounded-md">
+                        <Button type="submit" color="blue">
                             Save
-                        </button>
+                        </Button>
                     </div>
                 </form>
             </template>

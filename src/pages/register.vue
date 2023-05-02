@@ -28,7 +28,7 @@
         <div class="w-full max-w-md space-y-8">
             <div>
                 <img class="mx-auto h-28 w-auto" src="../assets/logo.jpg" alt="Todo app">
-                <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+                <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-200">
                     {{ t('headings.signUp') }}
                 </h2>
             </div>
@@ -70,15 +70,15 @@
                 </div>
 
                 <div>
-                    <button
+                    <Button
                         type="submit"
-                        class="group relative flex w-full justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        color="blue"
                     >
                         <span class="absolute inset-y-0 left-0 flex items-center pl-3">
                             <LockClosedIcon class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
                         </span>
                         {{ t('button.signup') }}
-                    </button>
+                    </Button>
                 </div>
                 <div class="flex items-center justify-center">
                     <p class="text-sm text-gray-600">

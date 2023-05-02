@@ -39,7 +39,7 @@
 </script>
 
 <template>
-    <Button class="bg-[green] py-[12px] px-[24px] rounded w-[100%] text-white" @click="toggleModal">
+    <Button color="green" @click="toggleModal">
         {{ t('button.add') }}
     </Button>
     <h1 class="mt-2 text-[30px] border-b-2">
@@ -57,7 +57,7 @@
         </h1>
     </div>
 
-    <Modal v-if="showModal" :toggle-modal="toggleModal">
+    <Modal v-if="showModal" @toggle-modal="toggleModal">
         <template #form>
             <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">
                 {{ t('headings.addNewProject') }}
@@ -78,12 +78,12 @@
                     placeholder="Add a name"
                     required
                 >
-                <button
+                <Button
                     type="submit"
-                    class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    color="green"
                 >
                     {{ t('button.add') }}
-                </button>
+                </Button>
             </form>
         </template>
     </Modal>
