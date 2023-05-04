@@ -1,5 +1,4 @@
 <script setup lang="ts">
-    import { ChevronLeftIcon } from "@heroicons/vue/20/solid";
     import userImg from "~/assets/user.jpg";
     import type { User } from "~/models/user";
     import { getUser } from "~/service/get-user";
@@ -39,15 +38,12 @@
 </script>
 
 <template>
-    <RouterLink to="/">
-        <ChevronLeftIcon class="w-12 h-12 text-gray-500 absolute" />
-    </RouterLink>
     <div v-if="showLoader">
         <Loader />
     </div>
     <div v-else class="flex flex-col justify-center items-center h-[90vh] w-[100%]">
         <img class="rounded-full w-36" :src="userImg" alt="User image">
-        <div class="sm:w-[70%] xs:w-max mt-4 flex flex-col gap-2">
+        <div class="w-[100%] sm:w-[70%] xs:w-max mt-4 flex flex-col gap-2">
             <div v-for="(value, key) in user" :key="key">
                 <div
                     v-if="key !== 'pk'"

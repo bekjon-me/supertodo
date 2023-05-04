@@ -13,10 +13,10 @@
         id="add-modal"
         tabindex="-1"
         aria-hidden="true"
-        class="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-hidden md:inset-0 h-full mb backdrop-blur-sm flex justify-center"
+        class="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-hidden md:inset-0 h-full backdrop-blur-sm flex justify-center"
         @click.self="handleToggleModal"
     >
-        <div class="relative w-full h-full max-w-md md:h-auto mt-4 overflow-y-auto scrollbar-hide">
+        <div class="relative w-full h-fit max-w-md mt-4 overflow-y-auto scrollbar-hide">
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 my-auto mb-4">
                 <button
                     type="button"
