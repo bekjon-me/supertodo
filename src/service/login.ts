@@ -14,7 +14,6 @@ export const handleLogin = async (values: any) => {
         };
         localStorage.setItem("tokens", JSON.stringify(tokens));
         createUser(res.data.user);
-        // router.push("/");
     };
 
     toast.promise(
@@ -24,6 +23,7 @@ export const handleLogin = async (values: any) => {
             success: "You have successfully logged in",
             error: {
                 render: (error: any) => {
+                    console.log(error);
                     if (error.response?.data.email)
                         return error.response.data.email[0];
 

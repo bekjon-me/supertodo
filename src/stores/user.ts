@@ -1,14 +1,10 @@
 import { defineStore } from "pinia";
 import type { User } from "~/models/user";
-import { logout } from "~/service/logout";
+import { handleLogin, logout } from "~/service/user-service";
 
 export const useUserStore = defineStore("user", () => {
     const router = useRouter();
     const user = ref<User | null>(null);
-
-    const createUser = (createdUser: User) => {
-        user.value = createdUser;
-    };
 
     const logoutUser = () => {
         logout();
@@ -17,9 +13,21 @@ export const useUserStore = defineStore("user", () => {
         router.push("/login");
     };
 
+    const loginUser = async (values: any) => {
+        const res = await handleLogin(values);
+        if (res.data) {
+            const tokens = {
+                access: res.data.access_token,
+                refresh: res.data.refresh_token,
+            };
+            localStorage.setItem("tokens", JSON.stringify(tokens));
+            user.value = res.data.user;
+        }
+    };
+
     return {
         user,
-        createUser,
         logoutUser,
+        loginUser,
     };
 });

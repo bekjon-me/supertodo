@@ -1,7 +1,11 @@
 <script setup lang="ts">
     import { EyeIcon, EyeSlashIcon, LockClosedIcon } from "@heroicons/vue/20/solid";
-    import { handleLogin } from "~/service/login";
+    import { storeToRefs } from "pinia";
+    import { toast } from "vue3-toastify";
 
+    const { loginUser } = useUserStore();
+    const { user } = storeToRefs(useUserStore());
+    const router = useRouter();
     const { t } = useI18n();
 
     const payload = ref({
@@ -10,9 +14,16 @@
     });
 
     const showPassword = ref(false);
-    const handleSubmit = (e: Event) => {
+    const handleSubmit = async (e: Event) => {
         e.preventDefault();
-        handleLogin(payload.value);
+        await loginUser(payload.value);
+        if (user.value) {
+            router.push("/");
+            toast.success("Login Successful");
+        }
+        else {
+            toast.error("Login Failed, Please try again");
+        }
     };
 </script>
 
