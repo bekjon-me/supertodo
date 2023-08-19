@@ -1,8 +1,7 @@
 <script setup lang="ts">
     import { toast } from "vue3-toastify";
     import type { Project } from "~/models/project";
-    import { addProject } from "~/service/projects-service";
-    import { getProjects } from "~/service/get-projects";
+    import { addProject, getProjects } from "~/service/projects-service";
 
     const { showLoader, toggleLoader } = useLoader();
     const { t } = useI18n();
