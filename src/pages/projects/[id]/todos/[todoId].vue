@@ -1,7 +1,6 @@
 <script setup lang="ts">
     import moment from "moment";
     import VueDatePicker from "@vuepic/vue-datepicker";
-    import type { Ref } from "vue";
     import { toast } from "vue3-toastify";
     import { Importance, Status, Todo } from "~/models/todo";
     import { deleteTodo, getTodo, updateTodo } from "~/service/todos-service";

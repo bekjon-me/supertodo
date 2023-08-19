@@ -13,6 +13,5 @@ export const deleteProject = async (id: number) => {
 };
 export const updateProject = async (id: number, name: string, editProject: (id: number, project: Project) => void) => {
     const res = await withTokenInstance.patch(`${PROJECTS_URL + id}/`, { name });
-    console.log(res.data);
     editProject(id, res.data);
 };
