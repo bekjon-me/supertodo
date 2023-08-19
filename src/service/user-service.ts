@@ -1,34 +1,23 @@
-import { toast } from "vue3-toastify";
 import { nonTokenInstance, withTokenInstance } from "./axios";
-import { LOGIN_USER_URL, LOGOUT_USER_URL } from "./urls";
+import { AUTH_USER_URL, LOGIN_USER_URL, LOGOUT_USER_URL, USER_URL } from "./urls";
+import type { RegisterPayload, User } from "~/models/user";
 
-export const handleLogin = async (values: any): Promise<any> => {
-    try {
-        const res = await nonTokenInstance.post(LOGIN_USER_URL, values);
-        return res;
-    }
-    catch (error) {
-        return error;
-    }
+export const handleRegister = async (values: RegisterPayload): Promise<any> => {
+    return await nonTokenInstance.post(AUTH_USER_URL, values);
 };
 
-export const logout = async () => {
-    const logoutFN = async () => {
-        await withTokenInstance.post(LOGOUT_USER_URL);
-        localStorage.removeItem("tokens");
-        // router.push("/login");
-    };
+export const handleLogin = async (values: any): Promise<any> => {
+    return await nonTokenInstance.post(LOGIN_USER_URL, values);
+};
 
-    toast.promise(logoutFN(), {
-        pending: "Logging out...",
-        success: "User has been logged out",
-        error: {
-            render: () => {
-                return "Something went wrong";
-            },
-        },
-    }, {
-        autoClose: 3000,
-        closeButton: true,
-    });
+export const handleLogout = async () => {
+    await withTokenInstance.post(LOGOUT_USER_URL);
+};
+
+export const handleGetUser = async () => {
+    return await withTokenInstance.get(USER_URL);
+};
+
+export const handleUpdateUser = async (modalUser: User) => {
+    return await withTokenInstance.patch(USER_URL, modalUser);
 };

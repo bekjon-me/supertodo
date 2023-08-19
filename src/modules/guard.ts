@@ -5,10 +5,11 @@ export const install: UserModule = ({ isClient, router }) => {
     if (isClient) {
         router.beforeEach(async (to, from, next) => {
             let isAuthenticated = false;
+            const token = JSON.parse(localStorage.getItem("tokens") || "{}").access;
             if (localStorage.getItem("tokens")) {
                 try {
                     await withTokenInstance.post("api/auth/token/verify/", {
-                        token: JSON.parse(localStorage.getItem("tokens") || "{}").access,
+                        token,
                     });
                     isAuthenticated = true;
                 }
