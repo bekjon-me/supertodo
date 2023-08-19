@@ -1,22 +1,26 @@
 <script setup lang="ts">
+    import { toast } from "vue3-toastify";
     import userImg from "~/assets/user.jpg";
-    import type { User } from "~/models/user";
-    import { getUser } from "~/service/get-user";
-    import { updateUser } from "~/service/update-user";
+    import { useUserStore } from "~/stores/user";
+    import { User } from "~/models/user";
 
-    const user = ref<User>({
-        pk: 0,
-        first_name: "",
-        last_name: "",
-        username: "",
-        email: "",
-    });
+    const { getUser, updateUser } = useUserStore();
+    const { user } = toRefs(useUserStore());
     const { showModal, toggleModal } = useModal();
     const { showLoader, toggleLoader } = useLoader();
     const modalUser = ref();
 
-    onMounted(() => {
-        getUser(user, toggleLoader);
+    onMounted(async () => {
+        try {
+            toggleLoader();
+            await getUser();
+        }
+        catch (error) {
+            toast.error("Something went wrong");
+        }
+        finally {
+            toggleLoader();
+        }
     });
     const labels = {
         first_name: "First name",
@@ -33,7 +37,34 @@
     };
 
     const handleSubmit = () => {
-        updateUser(modalUser.value, user, toggleModal);
+        if (!modalUser.value || toRaw(modalUser.value) === toRaw(user.value)) {
+            toggleModal();
+            return;
+        }
+
+        toast.promise(updateUser(modalUser.value), {
+            pending: "Updating...",
+            success: {
+                render: () => {
+                    return "User has been updated";
+                },
+            },
+            error: {
+                render: (error: any) => {
+                    const errors = error.data.response.data;
+                    if (errors.details)
+                        return errors.details;
+
+                    else return "Something went wrong";
+                },
+
+            },
+        }, {
+            autoClose: 1000,
+            closeButton: true,
+        });
+        toggleModal();
+        modalUser.value = null;
     };
 </script>
 
@@ -77,7 +108,7 @@
                             :id="key"
                             type="text"
                             class="border border-gray-300 rounded-md p-2 dark:text-gray-200"
-                            :value="(user)[key]"
+                            :value="(user as User)[key]"
                             @change="(e) => handleChange(e, key)"
                         >
                     </div>

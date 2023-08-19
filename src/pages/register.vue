@@ -1,14 +1,19 @@
 <script setup lang="ts">
-    import { LockClosedIcon } from "@heroicons/vue/20/solid";
+    import { EyeIcon, EyeSlashIcon, LockClosedIcon } from "@heroicons/vue/20/solid";
     import { toast } from "vue3-toastify";
-    import { handleRegister } from "~/service/register";
+    import { useUserStore } from "~/stores/user";
 
+    const router = useRouter();
+    const { registerUser } = useUserStore();
     const payload = ref({
         email: "",
         username: "",
         password1: "",
         password2: "",
     });
+
+    const showPassword1 = ref(false);
+    const showPassword2 = ref(false);
 
     const { t } = useI18n();
 
@@ -19,12 +24,39 @@
             return;
         }
 
-        handleRegister(payload.value);
+        await toast.promise(
+            registerUser(payload.value),
+            {
+                pending: "Creating an account...",
+                success: "Created successfully",
+                error: {
+                    render: (error: any) => {
+                        const errors = error?.data?.response.data;
+                        if (errors.username)
+                            return errors.username;
+
+                        if (errors.email)
+                            return errors.email;
+
+                        if (errors.password1)
+                            return errors.password1;
+
+                        if (errors.non_field_errors)
+                            return errors.non_field_errors;
+
+                        else return "Something went wrong";
+                    },
+                },
+            }, {
+                autoClose: 3000,
+                closeButton: true,
+            });
+        await router.push("/");
     };
 </script>
 
 <template>
-    <div class="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="flex min-h-full items-center justify-center px-4 sm:px-6 lg:px-8">
         <div class="w-full max-w-md space-y-8">
             <div>
                 <img class="mx-auto h-28 w-auto" src="../assets/logo.jpg" alt="Todo app">
@@ -51,21 +83,59 @@
                             class="relative block w-full rounded-t-md border-0 p-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:text-gray-200 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-none" placeholder="Username"
                         >
                     </div>
-                    <div>
+                    <div class="relative">
                         <label for="password" class="sr-only">{{ t('labels.password') }}</label>
                         <input
-                            id="password" v-model="payload.password1" name="password" type="password" autocomplete="current-password"
+                            id="password"
+                            v-model="payload.password1"
+                            name="password"
+                            :type="showPassword1 ? 'text' : 'password'"
+                            autocomplete="current-password"
                             required
-                            class="relative block w-full rounded-b-md border-0 p-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:text-gray-200 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-none" placeholder="Password"
+                            class="relative block w-full rounded-b-md border-0 p-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:text-gray-200 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-none"
+                            placeholder="Password"
                         >
+                        <div class="absolute z-10 inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
+                            <EyeIcon
+                                v-if="!showPassword1"
+                                class="h-5 w-5 text-gray-400 cursor-pointer"
+                                aria-hidden="true"
+                                @click="showPassword1 = !showPassword1"
+                            />
+                            <EyeSlashIcon
+                                v-else
+                                class="h-5 w-5 text-gray-400 cursor-pointer"
+                                aria-hidden="true"
+                                @click="showPassword1 = !showPassword1"
+                            />
+                        </div>
                     </div>
-                    <div>
+                    <div class="relative">
                         <label for="password1" class="sr-only">{{ t('labels.password') }}</label>
                         <input
-                            id="password1" v-model="payload.password2" name="password1" type="password" autocomplete="current-password"
+                            id="password1"
+                            v-model="payload.password2"
+                            name="password1"
+                            autocomplete="current-password"
+                            :type="showPassword2 ? 'text' : 'password'"
                             required
-                            class="relative block w-full rounded-b-md border-0 p-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:text-gray-200 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-none" placeholder="Confirm password"
+                            class="relative block w-full rounded-b-md border-0 p-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:text-gray-200 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-none"
+                            placeholder="Confirm password"
                         >
+                        <div class="absolute z-10 inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
+                            <EyeIcon
+                                v-if="!showPassword2"
+                                class="h-5 w-5 text-gray-400 cursor-pointer"
+                                aria-hidden="true"
+                                @click="showPassword2 = !showPassword2"
+                            />
+                            <EyeSlashIcon
+                                v-else
+                                class="h-5 w-5 text-gray-400 cursor-pointer"
+                                aria-hidden="true"
+                                @click="showPassword2 = !showPassword2"
+                            />
+                        </div>
                     </div>
                 </div>
 

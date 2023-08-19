@@ -1,6 +1,7 @@
 <script setup lang="ts">
+    import { toast } from "vue3-toastify";
     import type { Project } from "~/models/project";
-    import { addProject } from "~/service/add-project";
+    import { addProject } from "~/service/projects-service";
     import { getProjects } from "~/service/get-projects";
 
     const { showLoader, toggleLoader } = useLoader();
@@ -17,11 +18,29 @@
     const projects = ref<Project[]>([]);
 
     const handleAddProject = () => {
-        addProject(modal.value.projectName, projects, toggleModal);
+        if (projects.value.find(project => project.name === modal.value.projectName)) {
+            toast.error("The project with this name already exists");
+            return;
+        }
+        toast.promise(addProject(modal.value.projectName, projects), {
+            pending: "Creating project...",
+            success: "The Project has been created",
+            error: {
+                render: (err: any) => {
+                    if (err.response?.data.name)
+                        return err.response.data.name[0];
+                    else return "Something went wrong";
+                },
+            },
+        }, {
+            autoClose: 3000,
+            closeButton: true,
+        });
+        toggleModal();
     };
 
     onMounted(async () => {
-        getProjects(projects, toggleLoader);
+        await getProjects(projects, toggleLoader);
     });
 
     const removeDeleted = (id: number) => {

@@ -2,10 +2,9 @@
     import moment from "moment";
     import VueDatePicker from "@vuepic/vue-datepicker";
     import type { Ref } from "vue";
+    import { toast } from "vue3-toastify";
     import { Importance, Status, Todo } from "~/models/todo";
-    import { getTodo } from "~/service/get-todo";
-    import { deleteTodo } from "~/service/delete-todo";
-    import { updateTodo } from "~/service/update-todo";
+    import { deleteTodo, getTodo, updateTodo } from "~/service/todos-service";
 
     const props = defineProps<{ todoId: string; id: string }>();
     const { toggleModal, showModal } = useModal();
@@ -13,9 +12,21 @@
     const { showLoader, toggleLoader } = useLoader();
 
     const actualTodo = ref<Todo>();
+    const router = useRouter();
 
     onMounted(async () => {
-        getTodo(actualTodo as Ref<Todo>, props.id as string, props.todoId, toggleLoader);
+        try {
+            toggleLoader();
+            actualTodo.value = await getTodo(props.id, props.todoId);
+        }
+        catch (error: any) {
+            if (error?.response?.status === 404)
+                await router.push(`/projects/${props.id}`);
+            return;
+        }
+        finally {
+            toggleLoader();
+        }
     });
 
     const modalTodo = ref();
@@ -40,18 +51,49 @@
         toggleModal();
     };
 
-    const deleteFn = () => {
-        deleteTodo(props.id as string, props.todoId as string, toggleConfirmation);
+    const deleteFn = async () => {
+        await toast.promise(
+            deleteTodo(props.id, props.todoId),
+            {
+                pending: "Deleting...",
+                success: "The todo has been deleted",
+                error: {
+                    render: (err: any) => {
+                        if (err.response?.data.name)
+                            return err.response.data.name[0];
+
+                        else return "Something went wrong";
+                    },
+                },
+            },
+            {
+                autoClose: 3000,
+                closeButton: true,
+            },
+        );
+        await router.push(`/projects/${props.id}`);
     };
 
     const handleSubmitEdit = () => {
-        updateTodo(
-            modalTodo.value as Todo,
-            actualTodo as Ref<Todo>,
-            props.id as string,
-            props.todoId as string,
-            toggleModal,
-        );
+        if (JSON.stringify(actualTodo.value) !== JSON.stringify(modalTodo.value)) {
+            toast.promise(updateTodo(modalTodo.value, props.id, props.todoId), {
+                pending: "Updating...",
+                success: "Todo has been updated",
+                error: {
+                    render: (err: any) => {
+                        return err.response.data.detail;
+                    },
+                },
+            }, {
+                autoClose: 3000,
+                closeButton: true,
+            });
+            actualTodo.value = modalTodo.value;
+            toggleModal();
+        }
+        else {
+            toast.warning("You haven't changed anything");
+        }
     };
 
     const customPosition = () => ({ top: "100%", left: 0 });

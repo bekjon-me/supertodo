@@ -1,7 +1,9 @@
 <script setup lang="ts">
     import { ArrowRightOnRectangleIcon } from "@heroicons/vue/20/solid";
+    import { toast } from "vue3-toastify";
     import { useUserStore } from "~/stores/user";
 
+    const router = useRouter();
     const { logoutUser } = useUserStore();
     const showDropdown = ref(false);
     const dropdown = ref();
@@ -22,9 +24,24 @@
             document.removeEventListener("click", handleClickOutside);
     }
 
-    const handleLogout = () => {
-        logoutUser();
-        toggleDropdown();
+    const handleLogout = async () => {
+        toast.promise(logoutUser(), {
+            pending: "Logging out...",
+            success: {
+                render: () => {
+                    router.push("/login");
+                    return "Logged out successfully";
+                },
+            },
+            error: {
+                render: () => {
+                    return "Something went wrong";
+                },
+            },
+        }, {
+            autoClose: 3000,
+            closeButton: true,
+        });
     };
 
     onUnmounted(() => {

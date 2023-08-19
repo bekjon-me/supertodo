@@ -1,9 +1,9 @@
 <script setup lang="ts">
     import VueDatePicker from "@vuepic/vue-datepicker";
+    import { toast } from "vue3-toastify";
     import type { Todo } from "~/models/todo";
     import { Importance, Status } from "~/models/todo";
-    import { getTodos } from "~/service/get-todos";
-    import { addTodo } from "~/service/add-todo";
+    import { addTodo, getTodos } from "~/service/todos-service";
 
     const props = defineProps<{ id: string }>();
 
@@ -19,23 +19,65 @@
         importance: "",
         current_status: "",
     });
-    const file = ref<File | null>(null);
 
     const todos = ref<Todo[]>([]);
 
     onMounted(async () => {
-        getTodos(todos, props.id, toggleLoader);
+        try {
+            toggleLoader();
+            todos.value = await getTodos(props.id);
+        }
+        catch (error: any) {
+            if (error.response?.data.name)
+                toast.error(error.response.data.name[0]);
+        }
+        finally {
+            toggleLoader();
+        }
     });
 
     const handleAddTodo = () => {
-        addTodo(newTodo, props.id, file, todos, toggleModal);
+        if (newTodo.value.beginning >= newTodo.value.completion) {
+            toast.error("The beginning date must be earlier than the completion date");
+            return;
+        }
+
+        if (todos.value.find(todo => todo.title === newTodo.value.title)) {
+            toast.error("The task with this name already exists");
+            return;
+        }
+        toast.promise(addTodo(newTodo, props.id, todos), {
+            pending: "Creating task...",
+            success: "Created successfully",
+            error: {
+                render: (err: any) => {
+                    if (err.response?.data.name)
+                        return err.response.data.name[0];
+
+                    if (err.response?.data.beginning)
+                        return err.response.data.beginning[0];
+
+                    if (err.response?.data.importance)
+                        return err.response.data.importance[0];
+
+                    else return "Something went wrong";
+                },
+
+            },
+        }, {
+            autoClose: 3000,
+            closeButton: true,
+        });
+        newTodo.value = {
+            title: "",
+            description: "",
+            beginning: new Date(),
+            completion: new Date(),
+            importance: "",
+            current_status: "",
+        };
+        toggleModal();
     };
-
-    // const handleFileUpload = (e: any) => {
-    //     file.value = e.target.files[0];
-    // };
-
-    const customPosition = () => ({ top: "100%", left: 0 });
 </script>
 
 <template>
@@ -90,7 +132,7 @@
                             v-model="newTodo.beginning"
                             type="date"
                             class="border-none rounded mt-[12px] mb-[12px] text-[#333] w-full"
-                            :alt-position="customPosition"
+                            :teleport-center="true"
                         />
                     </div>
                     <div>
@@ -105,7 +147,7 @@
                             v-model="newTodo.completion"
                             type="date"
                             class="border-none rounded mt-[12px] mb-[12px] text-[#333] w-full"
-                            :alt-position="customPosition"
+                            :teleport-center="true"
                         />
                     </div>
                 </div>

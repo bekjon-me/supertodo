@@ -1,10 +1,8 @@
 <script setup lang="ts">
     import { EyeIcon, EyeSlashIcon, LockClosedIcon } from "@heroicons/vue/20/solid";
-    import { storeToRefs } from "pinia";
     import { toast } from "vue3-toastify";
 
     const { loginUser } = useUserStore();
-    const { user } = storeToRefs(useUserStore());
     const router = useRouter();
     const { t } = useI18n();
 
@@ -16,19 +14,33 @@
     const showPassword = ref(false);
     const handleSubmit = async (e: Event) => {
         e.preventDefault();
-        await loginUser(payload.value);
-        if (user.value) {
-            router.push("/");
-            toast.success("Login Successful");
-        }
-        else {
-            toast.error("Login Failed, Please try again");
-        }
+        await toast.promise(loginUser(payload.value), {
+            pending: "Logging in...",
+            success: {
+                render: () => {
+                    router.push("/");
+                    return "Login Successful";
+                },
+            },
+            error: {
+                render: (error: any) => {
+                    const errors = error?.data?.response.data;
+                    if (errors.non_field_errors)
+                        return errors.non_field_errors;
+
+                    else return "Something went wrong";
+                },
+            },
+        }, {
+            autoClose: 3000,
+            closeButton: true,
+        });
+        await router.push("/");
     };
 </script>
 
 <template>
-    <div class="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="flex min-h-full items-center justify-center px-4 sm:px-6 lg:px-8">
         <div class="w-full max-w-md space-y-8">
             <div>
                 <img class="mx-auto h-28 w-auto" src="../assets/logo.jpg" alt="Your Company">

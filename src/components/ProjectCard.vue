@@ -1,10 +1,10 @@
 <script setup lang="ts">
     import axios from "axios";
     import moment from "moment";
+    import { toast } from "vue3-toastify";
     import type { Project } from "~/models/project";
     import thinkHappy from "~/assets/thinkHappy.jpg";
-    import { deleteProject } from "~/service/delete-project";
-    import { updateProject } from "~/service/update-project";
+    import { deleteProject, updateProject } from "~/service/projects-service";
 
     const props = defineProps<{
         project: Project
@@ -42,7 +42,24 @@
     });
 
     const deleteFn = () => {
-        deleteProject(props.project.upid, toggleConfirmation, props.removeDeleted);
+        toast.promise(
+            deleteProject(props.project.upid),
+            {
+                pending: "Deleting...",
+                success: "The project has been deleted",
+                error: {
+                    render: (err: any) => {
+                        return err.response.data.detail;
+                    },
+                },
+            },
+            {
+                autoClose: 3000,
+                closeButton: true,
+            },
+        );
+        props.removeDeleted(props.project.upid);
+        toggleConfirmation();
     };
 
     const openModal = () => {
@@ -52,7 +69,27 @@
     };
 
     const handleEdit = () => {
-        updateProject(props.project.upid, changingName.value, toggleModal, props.editProject);
+        if (changingName.value !== props.project.name) {
+            toast.promise(updateProject(props.project.upid, changingName.value, props.editProject), {
+                pending: "Updating...",
+                success: "The project has been updated",
+                error: {
+                    render: (err: any) => {
+                        if (err.response?.data.name)
+                            return err.response.data.name[0];
+
+                        else return "Something went wrong";
+                    },
+                },
+            }, {
+                autoClose: 3000,
+                closeButton: true,
+            });
+            toggleModal();
+        }
+        else {
+            toast.warning("You haven't changed anything");
+        }
     };
 </script>
 
