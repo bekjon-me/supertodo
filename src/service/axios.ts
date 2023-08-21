@@ -7,7 +7,7 @@ const baseURL = "http://127.0.0.1:8000/";
 
 export const nonTokenInstance = axios.create({
     baseURL,
-    // timeout: 30000,
+    timeout: 30000,
     headers: {
         "Accept": "application/json",
         "Content-Type": "application/json; charset=utf-8",
